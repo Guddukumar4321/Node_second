@@ -1,0 +1,26 @@
+{
+  "name": "node_second",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guddukumar4321/Nodejs_projects.git"
+  },
+  "author": "Guddu kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guddukumar4321/Nodejs_projects/issues"
+  },
+  "homepage": "https://github.com/Guddukumar4321/Nodejs_projects#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "simple-node-logger": "^21.8.12"
+  }
+}
