@@ -141,3 +141,88 @@ const main = async () => {
 };
 
 main();
+
+
+
+
+
+const express = require("express");
+require("./config");
+const multer = require("multer");
+
+const product = require("./product");
+
+const app = express();
+app.use(express.json());
+
+//file upload method
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (res, file, cd) {
+      cd(null, "uploads");
+    },
+
+    filename: function (req, file, cd) {
+      cd(null, file.fieldname + "_" + Date.now() + ".jpg");
+    },
+  }),
+}).single("user_file");
+
+//file uplode method
+app.post("/upload", upload, (req, resp) => {
+  resp.send("file uploded");
+});
+
+//post method
+app.post("/create", async (req, reps) => {
+  let data = new product(req.body);
+  let result = await data.save();
+  console.log(req.body);
+  reps.send(result);
+});
+
+//get method
+app.get("/list", async (req, resp) => {
+  let data = await product.find();
+  resp.send(data);
+});
+
+//delete method
+app.delete("/delete/:_id", async (req, resp) => {
+  let data = await product.deleteOne(req.params);
+
+  resp.send(data);
+});
+
+//update method
+app.put("/update/:_id", async (req, resp) => {
+  let data = await product.updateOne(req.params, { $set: req.body });
+
+  resp.send(data);
+});
+
+//search method
+app.get("/search/:key", async (req, resp) => {
+  let data = await product.find({
+    $or: [
+      { name: { $regex: req.params.key } },
+      { brand: { $regex: req.params.key } },
+      { category: { $regex: req.params.key } },
+    ],
+  });
+
+  resp.send(data);
+});
+
+app.listen(5000);
+
+
+
+///for system information
+const os = require("os");
+//console.log(os.arch());
+//console.log(os.freemem()/(1024*1024*1024))
+console.log(os.hostname());
+console.log(os.platform());
+console.log(os.userInfo());

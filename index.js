@@ -1,16 +1,12 @@
 const express = require("express");
-require("./config");
+const EventEmitter = require("events");
 
-const products = require("./product");
-
+var x = 20;
+console.log(++x);
 const app = express();
-app.use(express.json())
 
-app.post("/create",  async(req, reps) => {
-  let data = new products(req.body);
-  let result = await data.save();
-  console.log(req.body);
-  reps.send(result);
+app.get("/", (req, resp) => {
+  resp.send("api called successfully");
 });
 
 app.listen(5000);
